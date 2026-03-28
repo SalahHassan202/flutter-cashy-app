@@ -1,3 +1,4 @@
+import 'package:cashy_app/colors/app_colors.dart';
 import 'package:cashy_app/data/onboarding_data.dart';
 import 'package:cashy_app/screens/home/home_screen.dart';
 import 'package:cashy_app/widgets/onboarding_item.dart';
@@ -14,36 +15,41 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _controller = PageController();
-  int currentIndex = 0;
+  int _currentIndex = 0;
 
-  Future<void> finish() async {
+  void _finishOnboarding() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('seenOnboarding', true);
-
     if (!mounted) return;
-
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (_) => HomeScreen()),
+      MaterialPageRoute(builder: (_) => const HomeScreen()),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20),
+      backgroundColor: Colors.white,
+      body: SafeArea(
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: TextButton(onPressed: finish, child: const Text("Skip")),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: TextButton(
+                  onPressed: _finishOnboarding,
+                  child: Text(
+                    "Skip",
+                    style: TextStyle(
+                      color: kTextSecondary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
             ),
             Expanded(
               child: PageView.builder(
@@ -51,7 +57,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 itemCount: onboardingList.length,
                 onPageChanged: (index) {
                   setState(() {
-                    currentIndex = index;
+                    _currentIndex = index;
                   });
                 },
                 itemBuilder: (context, index) {
@@ -65,53 +71,53 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 onboardingList.length,
                 (index) => AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  width: currentIndex == index ? 16 : 8,
+                  margin: const EdgeInsets.only(right: 8),
                   height: 8,
+                  width: _currentIndex == index ? 24 : 8,
                   decoration: BoxDecoration(
-                    color: currentIndex == index
-                        ? Colors.orange
-                        : Colors.grey.shade400,
+                    color: _currentIndex == index
+                        ? kPrimaryOrange
+                        : Colors.grey[300],
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
             ),
-            Gap(30),
-            SizedBox(
-              width: double.infinity,
-              height: 55,
+            const Gap(40),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
-                  foregroundColor: Colors.white,
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                ),
                 onPressed: () {
-                  if (currentIndex == onboardingList.length - 1) {
-                    finish();
+                  if (_currentIndex == onboardingList.length - 1) {
+                    _finishOnboarding();
                   } else {
                     _controller.nextPage(
-                      duration: const Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInOut,
                     );
                   }
                 },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: kPrimaryOrange,
+                  minimumSize: const Size(double.infinity, 58),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  elevation: 0,
+                ),
                 child: Text(
-                  currentIndex == onboardingList.length - 1
+                  _currentIndex == onboardingList.length - 1
                       ? "Get Started"
                       : "Next",
                   style: const TextStyle(
-                    fontSize: 16,
+                    color: Colors.white,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ),
-            Gap(20),
+            const Gap(30),
           ],
         ),
       ),

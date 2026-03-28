@@ -18,24 +18,22 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
     Future.delayed(const Duration(milliseconds: 500), () {
-      setState(() {
-        opacity = 1;
-      });
+      if (mounted) {
+        setState(() {
+          opacity = 1;
+        });
+      }
     });
-
     _navigate();
   }
 
   Future<void> _navigate() async {
     await Future.delayed(const Duration(seconds: 3));
-
     final prefs = await SharedPreferences.getInstance();
     bool seen = prefs.getBool('seenOnboarding') ?? false;
 
     if (!mounted) return;
-
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -56,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset("assets/images/splach/splach.png", width: 300),
-              Gap(20),
+              const Gap(20),
               Text(
                 "Cashy",
                 style: TextStyle(
@@ -65,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   color: kPrimaryOrange,
                 ),
               ),
-              Gap(8),
+              const Gap(8),
               Text(
                 "Track. Save. Grow.",
                 style: TextStyle(color: kTextSecondary),
