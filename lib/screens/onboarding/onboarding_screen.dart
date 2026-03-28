@@ -45,7 +45,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               alignment: Alignment.topRight,
               child: TextButton(onPressed: finish, child: const Text("Skip")),
             ),
-
             Expanded(
               child: PageView.builder(
                 controller: _controller,
@@ -60,7 +59,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 },
               ),
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
@@ -79,9 +77,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
             ),
-
-            const Gap(30),
-
+            Gap(30),
             SizedBox(
               width: double.infinity,
               height: 55,
@@ -115,8 +111,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
             ),
-
-            const Gap(20),
+            Gap(20),
           ],
         ),
       ),
