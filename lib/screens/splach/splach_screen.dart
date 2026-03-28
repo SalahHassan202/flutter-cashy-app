@@ -1,8 +1,8 @@
-import 'dart:async';
 import 'package:cashy_app/colors/app_colors.dart';
 import 'package:cashy_app/screens/home/home_screen.dart';
 import 'package:cashy_app/screens/onboarding/onboarding_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,27 +19,29 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    // animation بسيطة
     Future.delayed(const Duration(milliseconds: 500), () {
       setState(() {
         opacity = 1;
       });
     });
 
-    // navigation logic
-    Future.delayed(const Duration(seconds: 3), () async {
-      final prefs = await SharedPreferences.getInstance();
-      bool seen = prefs.getBool('seenOnboarding') ?? false;
+    _navigate();
+  }
 
-      if (!mounted) return;
+  Future<void> _navigate() async {
+    await Future.delayed(const Duration(seconds: 3));
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => seen ? const HomeScreen() : const OnboardingScreen(),
-        ),
-      );
-    });
+    final prefs = await SharedPreferences.getInstance();
+    bool seen = prefs.getBool('seenOnboarding') ?? false;
+
+    if (!mounted) return;
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (_) => seen ? const HomeScreen() : const OnboardingScreen(),
+      ),
+    );
   }
 
   @override
@@ -53,10 +55,8 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("assets/images/splach/splach.png", width: 350),
-
-              const SizedBox(height: 20),
-
+              Image.asset("assets/images/splach/splach.png", width: 300),
+              Gap(20),
               Text(
                 "Cashy",
                 style: TextStyle(
@@ -65,9 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   color: kPrimaryOrange,
                 ),
               ),
-
-              const SizedBox(height: 8),
-
+              Gap(8),
               Text(
                 "Track. Save. Grow.",
                 style: TextStyle(color: kTextSecondary),
