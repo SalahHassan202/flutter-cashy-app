@@ -5,6 +5,7 @@ import 'package:cashy_app/screens/see_all/see_all_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -70,7 +71,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
 
-                      const Icon(Icons.settings),
+                      IconButton(
+                        onPressed: () {
+                          var box = Hive.box('darkModeBox');
+
+                          bool isDark = box.get(
+                            'darkMode',
+                            defaultValue: false,
+                          );
+
+                          box.put('darkMode', !isDark);
+                        },
+
+                        icon: Icon(
+                          Hive.box(
+                                'darkModeBox',
+                              ).get('darkMode', defaultValue: false)
+                              ? Icons.light_mode
+                              : Icons.dark_mode,
+                        ),
+                      ),
                     ],
                   ),
 
