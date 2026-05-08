@@ -1,6 +1,8 @@
 import 'package:cashy_app/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:cashy_app/models/finance_model.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class AddScreen extends StatefulWidget {
   final bool isPlus;
@@ -213,7 +215,25 @@ class _AddScreenState extends State<AddScreen> {
                         borderRadius: BorderRadius.circular(14),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (num.isEmpty || detailsController.text.isEmpty) return;
+
+                      final box = Hive.box<FinanceModel>('financeBox');
+
+                      await box.add(
+                        FinanceModel(
+                          details: detailsController.text,
+                          financeValue: widget.isPlus
+                              ? double.parse(num)
+                              : double.parse(num) * -1,
+                          date: DateTime.now(),
+                        ),
+                      );
+
+                      if (!context.mounted) return;
+
+                      Navigator.pop(context);
+                    },
                     child: const Text("ADD"),
                   ),
                 ),
