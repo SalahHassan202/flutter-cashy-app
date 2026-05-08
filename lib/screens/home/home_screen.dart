@@ -1,26 +1,45 @@
+import 'package:cashy_app/cubit/fetchCubit/fetch_data_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    BlocProvider.of<FetchDataCubit>(context).fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF5F5F5),
+
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                 children: [
                   const Text(
                     "Welcome, Salah",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
+
                   const Icon(Icons.settings),
                 ],
               ),
@@ -30,15 +49,20 @@ class HomeScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
+
                 decoration: BoxDecoration(
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(16),
                 ),
+
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+
                   children: [
                     Text("My Balance", style: TextStyle(color: Colors.white70)),
+
                     SizedBox(height: 10),
+
                     Text(
                       "698",
                       style: TextStyle(
@@ -56,15 +80,20 @@ class HomeScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
+
                 decoration: BoxDecoration(
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(16),
                 ),
+
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+
                   children: [
                     Text("Today", style: TextStyle(color: Colors.white70)),
+
                     SizedBox(height: 10),
+
                     Text(
                       "0.00",
                       style: TextStyle(
@@ -84,21 +113,27 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 14),
+
                       decoration: BoxDecoration(
                         color: Colors.green.shade200,
                         borderRadius: BorderRadius.circular(14),
                       ),
+
                       child: const Center(child: Text("+ Plus")),
                     ),
                   ),
-                  const SizedBox(width: 12),
+
+                  Gap(12),
+
                   Expanded(
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 14),
+
                       decoration: BoxDecoration(
                         color: Colors.red.shade200,
                         borderRadius: BorderRadius.circular(14),
                       ),
+
                       child: const Center(child: Text("- Minus")),
                     ),
                   ),
@@ -109,11 +144,13 @@ class HomeScreen extends StatelessWidget {
 
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                 children: [
                   Text(
                     "Activity",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
+
                   Text("See All"),
                 ],
               ),
@@ -128,11 +165,13 @@ class HomeScreen extends StatelessWidget {
                       amount: "+700.0",
                       color: Colors.green,
                     ),
+
                     ActivityItem(
                       name: "yu",
                       amount: "+800.058",
                       color: Colors.green,
                     ),
+
                     ActivityItem(
                       name: "ttt",
                       amount: "-802.0",
@@ -165,8 +204,11 @@ class ActivityItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(backgroundColor: color),
+
       title: Text(name),
+
       subtitle: const Text("Mon, Oct 16, 2023"),
+
       trailing: Text(amount),
     );
   }
