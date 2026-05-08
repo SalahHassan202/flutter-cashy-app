@@ -38,6 +38,19 @@ class _HomeScreenState extends State<HomeScreen> {
               context,
             ).todayFinanceList.reversed.toList();
 
+            double totalBalance = 0;
+
+            double todayBalance = 0;
+
+            for (var item in myList) {
+              totalBalance += item.financeValue;
+
+              if (DateFormat.yMd().format(item.date) ==
+                  DateFormat.yMd().format(DateTime.now())) {
+                todayBalance += item.financeValue;
+              }
+            }
+
             return Padding(
               padding: const EdgeInsets.all(16),
 
@@ -73,20 +86,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(16),
                     ),
 
-                    child: const Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
 
                       children: [
-                        Text(
+                        const Text(
                           "My Balance",
                           style: TextStyle(color: Colors.white70),
                         ),
 
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
 
                         Text(
-                          "698",
-                          style: TextStyle(
+                          totalBalance.toStringAsFixed(2),
+
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -108,17 +122,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(16),
                     ),
 
-                    child: const Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
 
                       children: [
-                        Text("Today", style: TextStyle(color: Colors.white70)),
+                        const Text(
+                          "Today",
+                          style: TextStyle(color: Colors.white70),
+                        ),
 
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
 
                         Text(
-                          "0.00",
-                          style: TextStyle(
+                          todayBalance.toStringAsFixed(2),
+
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
@@ -218,31 +236,36 @@ class _HomeScreenState extends State<HomeScreen> {
                   Gap(10),
 
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: myList.length,
+                    child: myList.isEmpty
+                        ? const Center(child: Text("No Transactions Yet"))
+                        : ListView.builder(
+                            itemCount: myList.length,
 
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: myList[index].financeValue > 0
-                                ? Colors.green
-                                : Colors.red,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                leading: CircleAvatar(
+                                  backgroundColor:
+                                      myList[index].financeValue > 0
+                                      ? Colors.green
+                                      : Colors.red,
+                                ),
+
+                                title: Text(myList[index].details),
+
+                                subtitle: Text(
+                                  DateFormat.yMMMEd().format(
+                                    myList[index].date,
+                                  ),
+                                ),
+
+                                trailing: Text(
+                                  myList[index].financeValue > 0
+                                      ? "+${myList[index].financeValue}"
+                                      : myList[index].financeValue.toString(),
+                                ),
+                              );
+                            },
                           ),
-
-                          title: Text(myList[index].details),
-
-                          subtitle: Text(
-                            DateFormat.yMMMEd().format(myList[index].date),
-                          ),
-
-                          trailing: Text(
-                            myList[index].financeValue > 0
-                                ? "+${myList[index].financeValue}"
-                                : myList[index].financeValue.toString(),
-                          ),
-                        );
-                      },
-                    ),
                   ),
                 ],
               ),
