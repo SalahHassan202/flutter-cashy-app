@@ -24,164 +24,181 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: const Color(0xffF5F5F5),
 
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+        child: BlocBuilder<FetchDataCubit, FetchDataState>(
+          builder: (context, state) {
+            if (state is FetchDataLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            return Padding(
+              padding: const EdgeInsets.all(16),
 
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
 
                 children: [
-                  const Text(
-                    "Welcome, Salah",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                    children: [
+                      const Text(
+                        "Welcome, Salah",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                      const Icon(Icons.settings),
+                    ],
                   ),
 
-                  const Icon(Icons.settings),
-                ],
-              ),
+                  Gap(20),
 
-              Gap(20),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
 
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-
-                  children: [
-                    Text("My Balance", style: TextStyle(color: Colors.white70)),
-
-                    SizedBox(height: 10),
-
-                    Text(
-                      "698",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(16),
                     ),
-                  ],
-                ),
-              ),
 
-              Gap(16),
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
 
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
+                      children: [
+                        Text(
+                          "My Balance",
+                          style: TextStyle(color: Colors.white70),
+                        ),
 
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(16),
-                ),
+                        SizedBox(height: 10),
 
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-
-                  children: [
-                    Text("Today", style: TextStyle(color: Colors.white70)),
-
-                    SizedBox(height: 10),
-
-                    Text(
-                      "0.00",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                      ),
+                        Text(
+                          "698",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
+                  ),
 
-              Gap(20),
+                  Gap(16),
 
-              Row(
-                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+
+                      children: [
+                        Text("Today", style: TextStyle(color: Colors.white70)),
+
+                        SizedBox(height: 10),
+
+                        Text(
+                          "0.00",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  Gap(20),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+
+                          decoration: BoxDecoration(
+                            color: Colors.green.shade200,
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+
+                          child: const Center(child: Text("+ Plus")),
+                        ),
+                      ),
+
+                      Gap(12),
+
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+
+                          decoration: BoxDecoration(
+                            color: Colors.red.shade200,
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+
+                          child: const Center(child: Text("- Minus")),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Gap(20),
+
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                    children: [
+                      Text(
+                        "Activity",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                      Text("See All"),
+                    ],
+                  ),
+
+                  Gap(10),
+
                   Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 14),
+                    child: ListView(
+                      children: const [
+                        ActivityItem(
+                          name: "fff",
+                          amount: "+700.0",
+                          color: Colors.green,
+                        ),
 
-                      decoration: BoxDecoration(
-                        color: Colors.green.shade200,
-                        borderRadius: BorderRadius.circular(14),
-                      ),
+                        ActivityItem(
+                          name: "yu",
+                          amount: "+800.058",
+                          color: Colors.green,
+                        ),
 
-                      child: const Center(child: Text("+ Plus")),
-                    ),
-                  ),
-
-                  Gap(12),
-
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-
-                      decoration: BoxDecoration(
-                        color: Colors.red.shade200,
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-
-                      child: const Center(child: Text("- Minus")),
+                        ActivityItem(
+                          name: "ttt",
+                          amount: "-802.0",
+                          color: Colors.red,
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-
-              Gap(20),
-
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                children: [
-                  Text(
-                    "Activity",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-
-                  Text("See All"),
-                ],
-              ),
-
-              Gap(10),
-
-              Expanded(
-                child: ListView(
-                  children: const [
-                    ActivityItem(
-                      name: "fff",
-                      amount: "+700.0",
-                      color: Colors.green,
-                    ),
-
-                    ActivityItem(
-                      name: "yu",
-                      amount: "+800.058",
-                      color: Colors.green,
-                    ),
-
-                    ActivityItem(
-                      name: "ttt",
-                      amount: "-802.0",
-                      color: Colors.red,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
