@@ -301,7 +301,6 @@ class _AddScreenState extends State<AddScreen> {
                               if (!context.mounted) {
                                 return;
                               }
-
                               Navigator.pop(context);
                             } catch (e) {
                               debugPrint(e.toString());
