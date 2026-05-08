@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:finance/models/finance_model.dart';
+import 'package:cashy_app/models/finance_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
 
 part 'fetch_data_state.dart';
 
@@ -19,9 +18,11 @@ class FetchDataCubit extends Cubit<FetchDataState> {
     try {
       financeList = Hive.box<FinanceModel>('financeBox').values.toList();
       todayFinanceList = financeList
-          .where((element) =>
-              DateFormat.yMMMEd().format(element.date) ==
-              DateFormat.yMMMEd().format(DateTime.now()))
+          .where(
+            (element) =>
+                DateFormat.yMMMEd().format(element.date) ==
+                DateFormat.yMMMEd().format(DateTime.now()),
+          )
           .toList();
       fetchDateData(dateTime: sel);
       sum = 0;
@@ -42,9 +43,11 @@ class FetchDataCubit extends Cubit<FetchDataState> {
 
   fetchDateData({DateTime? dateTime}) {
     dateFinanceList = financeList
-        .where((element) =>
-            DateFormat.yMMMEd().format(element.date) ==
-            DateFormat.yMMMEd().format(dateTime ?? DateTime.now()))
+        .where(
+          (element) =>
+              DateFormat.yMMMEd().format(element.date) ==
+              DateFormat.yMMMEd().format(dateTime ?? DateTime.now()),
+        )
         .toList();
   }
 }

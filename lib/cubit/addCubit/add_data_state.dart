@@ -1,6 +1,5 @@
 part of 'add_data_cubit.dart';
 
-@immutable
 sealed class AddDataState {}
 
 final class AddDataInitial extends AddDataState {}
