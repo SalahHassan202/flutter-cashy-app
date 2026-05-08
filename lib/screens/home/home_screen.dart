@@ -1,5 +1,7 @@
 import 'package:cashy_app/cubit/fetchCubit/fetch_data_cubit.dart';
 import 'package:cashy_app/models/finance_model.dart';
+import 'package:cashy_app/screens/add/add_screen.dart';
+import 'package:cashy_app/screens/see_all/see_all_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -63,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   Container(
                     width: double.infinity,
+
                     padding: const EdgeInsets.all(16),
 
                     decoration: BoxDecoration(
@@ -97,6 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   Container(
                     width: double.infinity,
+
                     padding: const EdgeInsets.all(16),
 
                     decoration: BoxDecoration(
@@ -129,30 +133,54 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const AddScreen(isPlus: true),
+                              ),
+                            );
+                          },
 
-                          decoration: BoxDecoration(
-                            color: Colors.green.shade200,
-                            borderRadius: BorderRadius.circular(14),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+
+                            decoration: BoxDecoration(
+                              color: Colors.green.shade200,
+
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+
+                            child: const Center(child: Text("+ Plus")),
                           ),
-
-                          child: const Center(child: Text("+ Plus")),
                         ),
                       ),
 
                       Gap(12),
 
                       Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const AddScreen(isPlus: false),
+                              ),
+                            );
+                          },
 
-                          decoration: BoxDecoration(
-                            color: Colors.red.shade200,
-                            borderRadius: BorderRadius.circular(14),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+
+                            decoration: BoxDecoration(
+                              color: Colors.red.shade200,
+
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+
+                            child: const Center(child: Text("- Minus")),
                           ),
-
-                          child: const Center(child: Text("- Minus")),
                         ),
                       ),
                     ],
@@ -160,11 +188,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   Gap(20),
 
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                     children: [
-                      Text(
+                      const Text(
                         "Activity",
                         style: TextStyle(
                           fontSize: 18,
@@ -172,7 +200,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
 
-                      Text("See All"),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const SeeAllScreen(),
+                            ),
+                          );
+                        },
+
+                        child: const Text("See All"),
+                      ),
                     ],
                   ),
 
