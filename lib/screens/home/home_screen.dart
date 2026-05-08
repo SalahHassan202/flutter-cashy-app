@@ -5,7 +5,7 @@ import 'package:cashy_app/screens/see_all/see_all_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF5F5F5),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
       body: SafeArea(
         child: BlocBuilder<FetchDataCubit, FetchDataState>(
@@ -63,11 +63,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                     children: [
-                      const Text(
+                      Text(
                         "Welcome, Salah",
+
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
+
+                          color: Theme.of(context).textTheme.bodyLarge!.color,
                         ),
                       ),
 
@@ -102,7 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.all(16),
 
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: Theme.of(context).cardColor,
+
                       borderRadius: BorderRadius.circular(16),
                     ),
 
@@ -110,20 +114,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
 
                       children: [
-                        const Text(
+                        Text(
                           "My Balance",
-                          style: TextStyle(color: Colors.white70),
+
+                          style: TextStyle(
+                            color: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.color,
+                          ),
                         ),
 
-                        const SizedBox(height: 10),
+                        Gap(10),
 
                         Text(
                           totalBalance.toStringAsFixed(2),
 
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
+
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
                           ),
                         ),
                       ],
@@ -138,7 +148,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.all(16),
 
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: Theme.of(context).cardColor,
+
                       borderRadius: BorderRadius.circular(16),
                     ),
 
@@ -146,20 +157,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
 
                       children: [
-                        const Text(
+                        Text(
                           "Today",
-                          style: TextStyle(color: Colors.white70),
+
+                          style: TextStyle(
+                            color: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.color,
+                          ),
                         ),
 
-                        const SizedBox(height: 10),
+                        Gap(10),
 
                         Text(
                           todayBalance.toStringAsFixed(2),
 
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
+
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
                           ),
                         ),
                       ],
@@ -230,11 +247,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                     children: [
-                      const Text(
+                      Text(
                         "Activity",
+
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
+
+                          color: Theme.of(context).textTheme.bodyLarge!.color,
                         ),
                       ),
 
@@ -248,7 +268,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         },
 
-                        child: const Text("See All"),
+                        child: Text(
+                          "See All",
+
+                          style: TextStyle(
+                            color: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.color,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -257,7 +285,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   Expanded(
                     child: myList.isEmpty
-                        ? const Center(child: Text("No Transactions Yet"))
+                        ? Center(
+                            child: Text(
+                              "No Transactions Yet",
+
+                              style: TextStyle(
+                                color: Theme.of(
+                                  context,
+                                ).textTheme.bodyMedium!.color,
+                              ),
+                            ),
+                          )
                         : ListView.builder(
                             itemCount: myList.length,
 

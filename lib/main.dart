@@ -31,7 +31,7 @@ class FinanceApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Finance',
-            darkTheme: ThemeData.dark(useMaterial3: true),
+            darkTheme: ThemeData.dark(useMaterial3: false),
             themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
             theme: ThemeData(useMaterial3: true),
             home: SplashScreen(),
