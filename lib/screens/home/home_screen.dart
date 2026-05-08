@@ -1,7 +1,9 @@
 import 'package:cashy_app/cubit/fetchCubit/fetch_data_cubit.dart';
+import 'package:cashy_app/models/finance_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,6 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
             if (state is FetchDataLoading) {
               return const Center(child: CircularProgressIndicator());
             }
+
+            List<FinanceModel> myList = BlocProvider.of<FetchDataCubit>(
+              context,
+            ).todayFinanceList.reversed.toList();
 
             return Padding(
               padding: const EdgeInsets.all(16),
@@ -173,26 +179,30 @@ class _HomeScreenState extends State<HomeScreen> {
                   Gap(10),
 
                   Expanded(
-                    child: ListView(
-                      children: const [
-                        ActivityItem(
-                          name: "fff",
-                          amount: "+700.0",
-                          color: Colors.green,
-                        ),
+                    child: ListView.builder(
+                      itemCount: myList.length,
 
-                        ActivityItem(
-                          name: "yu",
-                          amount: "+800.058",
-                          color: Colors.green,
-                        ),
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: myList[index].financeValue > 0
+                                ? Colors.green
+                                : Colors.red,
+                          ),
 
-                        ActivityItem(
-                          name: "ttt",
-                          amount: "-802.0",
-                          color: Colors.red,
-                        ),
-                      ],
+                          title: Text(myList[index].details),
+
+                          subtitle: Text(
+                            DateFormat.yMMMEd().format(myList[index].date),
+                          ),
+
+                          trailing: Text(
+                            myList[index].financeValue > 0
+                                ? "+${myList[index].financeValue}"
+                                : myList[index].financeValue.toString(),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],
@@ -201,32 +211,6 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
       ),
-    );
-  }
-}
-
-class ActivityItem extends StatelessWidget {
-  final String name;
-  final String amount;
-  final Color color;
-
-  const ActivityItem({
-    super.key,
-    required this.name,
-    required this.amount,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(backgroundColor: color),
-
-      title: Text(name),
-
-      subtitle: const Text("Mon, Oct 16, 2023"),
-
-      trailing: Text(amount),
     );
   }
 }
