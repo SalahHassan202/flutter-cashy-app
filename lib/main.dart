@@ -54,7 +54,7 @@ class FinanceApp extends StatelessWidget {
 
               scaffoldBackgroundColor: const Color(0xffF5F5F5),
 
-              cardColor: Colors.white,
+              cardColor: const Color(0xffE7E7E7),
             ),
 
             home: SplashScreen(),
