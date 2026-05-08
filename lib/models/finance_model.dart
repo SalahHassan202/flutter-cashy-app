@@ -10,6 +10,9 @@ class FinanceModel extends HiveObject {
   @HiveField(2)
   DateTime date;
 
-  FinanceModel(
-      {required this.details, required this.financeValue, required this.date});
+  FinanceModel({
+    required this.details,
+    required this.financeValue,
+    required this.date,
+  });
 }
