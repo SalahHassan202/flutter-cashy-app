@@ -1,6 +1,7 @@
 import 'package:cashy_app/colors/app_colors.dart';
 import 'package:cashy_app/cubit/fetchCubit/fetch_data_cubit.dart';
 import 'package:cashy_app/models/finance_model.dart';
+import 'package:cashy_app/screens/add/add_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -82,54 +83,117 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                     itemCount: myList.length,
 
                     itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 12),
-                        padding: const EdgeInsets.all(12),
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
 
-                        decoration: BoxDecoration(
-                          color: kWhiteColor,
-                          borderRadius: BorderRadius.circular(14),
-                        ),
+                        child: Dismissible(
+                          key: UniqueKey(),
 
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: myList[index].financeValue > 0
-                                  ? kSeconderyGreen
-                                  : kSeconderyRed,
+                          background: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+
+                            decoration: BoxDecoration(
+                              color: kSeconderyGreen,
+                              borderRadius: BorderRadius.circular(14),
                             ),
 
-                            const SizedBox(width: 12),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
 
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              child: Icon(Icons.edit, color: kPrimaryGreen),
+                            ),
+                          ),
 
+                          secondaryBackground: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+
+                            decoration: BoxDecoration(
+                              color: kSeconderyRed,
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+
+                            child: Align(
+                              alignment: Alignment.centerRight,
+
+                              child: Icon(Icons.delete, color: kPrimaryRed),
+                            ),
+                          ),
+
+                          onDismissed: (direction) {
+                            if (direction == DismissDirection.startToEnd) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => AddScreen(
+                                    isPlus: myList[index].financeValue > 0,
+
+                                    financeModel: myList[index],
+                                  ),
+                                ),
+                              );
+                            } else {
+                              myList[index].delete();
+
+                              BlocProvider.of<FetchDataCubit>(
+                                context,
+                              ).fetchData();
+
+                              BlocProvider.of<FetchDataCubit>(
+                                context,
+                              ).fetchDateData(dateTime: mySelectedDay);
+                            }
+                          },
+
+                          child: Container(
+                            padding: const EdgeInsets.all(12),
+
+                            decoration: BoxDecoration(
+                              color: kWhiteColor,
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+
+                            child: Row(
                               children: [
-                                Text(myList[index].details),
+                                CircleAvatar(
+                                  backgroundColor:
+                                      myList[index].financeValue > 0
+                                      ? kSeconderyGreen
+                                      : kSeconderyRed,
+                                ),
+
+                                const SizedBox(width: 12),
+
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                                  children: [
+                                    Text(myList[index].details),
+
+                                    Text(
+                                      DateFormat.yMMMEd().format(
+                                        myList[index].date,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                                const Spacer(),
 
                                 Text(
-                                  DateFormat.yMMMEd().format(
-                                    myList[index].date,
+                                  myList[index].financeValue > 0
+                                      ? "+${myList[index].financeValue}"
+                                      : myList[index].financeValue.toString(),
+
+                                  style: TextStyle(
+                                    color: myList[index].financeValue > 0
+                                        ? kPrimaryGreen
+                                        : kPrimaryRed,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ],
                             ),
-
-                            const Spacer(),
-
-                            Text(
-                              myList[index].financeValue > 0
-                                  ? "+${myList[index].financeValue}"
-                                  : myList[index].financeValue.toString(),
-
-                              style: TextStyle(
-                                color: myList[index].financeValue > 0
-                                    ? kPrimaryGreen
-                                    : kPrimaryRed,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       );
                     },
