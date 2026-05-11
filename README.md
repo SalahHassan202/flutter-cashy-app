@@ -5,7 +5,6 @@ The app helps users manage their income and expenses with a clean design and smo
 The main goal of the project was to practice Flutter development with real features like local database management, state management, dark mode, onboarding flow, and responsive UI design.
 
 <br/>
-<br/>
 
 # 🎥 Demo Preview
 
@@ -14,41 +13,34 @@ Watch Demo Video:
 https://www.linkedin.com/posts/salah-hassan66190_flutter-mobiledevelopment-dart-activity-7459676641900883968-XQs8?utm_source=share&utm_medium=member_android&rcm=ACoAAFY2TGMBI-LuRPjN8vwwkj21qlrQwdAev7M
 
 <br/>
-<br/>
 
 # 📱 App Screenshots
 
 <div align="center">
 
-<img src="assets/screenshots/01.png" width="230"/>
-<img src="assets/screenshots/02.png" width="230"/>
-<img src="assets/screenshots/03.png" width="230"/>
+<img src="assets/screenshots/01.jpg" width="230"/>
+<img src="assets/screenshots/02.jpg" width="230"/>
+<img src="assets/screenshots/03.jpg" width="230"/>
 
 <br/>
-<br/>
 
-<img src="assets/screenshots/04.png" width="230"/>
-<img src="assets/screenshots/05.png" width="230"/>
-<img src="assets/screenshots/06.png" width="230"/>
-
-<br/>
-<br/>
-
-<img src="assets/screenshots/07.png" width="230"/>
-<img src="assets/screenshots/08.png" width="230"/>
-<img src="assets/screenshots/09.png" width="230"/>
+<img src="assets/screenshots/04.jpg" width="230"/>
+<img src="assets/screenshots/05.jpg" width="230"/>
+<img src="assets/screenshots/06.jpg" width="230"/>
 
 <br/>
+
+<img src="assets/screenshots/07.jpg" width="230"/>
+<img src="assets/screenshots/08.jpg" width="230"/>
+<img src="assets/screenshots/09.jpg" width="230"/>
+
 <br/>
 
-<img src="assets/screenshots/10.png" width="230"/>
-<img src="assets/screenshots/11.png" width="230"/>
-<img src="assets/screenshots/12.png" width="230"/>
+<img src="assets/screenshots/10.jpg" width="230"/>
+<img src="assets/screenshots/11.jpg" width="230"/>
+<img src="assets/screenshots/12.jpg" width="230"/>
 
 </div>
-
-<br/>
-<br/>
 
 # ✨ Features
 
@@ -67,7 +59,6 @@ https://www.linkedin.com/posts/salah-hassan66190_flutter-mobiledevelopment-dart-
 * Organized project structure
 * Responsive design for different devices
 
-<br/>
 <br/>
 
 # 🛠 Tech Stack
@@ -106,7 +97,6 @@ https://www.linkedin.com/posts/salah-hassan66190_flutter-mobiledevelopment-dart-
 * flutter_lints
 
 <br/>
-<br/>
 
 # 📂 Folder Structure
 
@@ -128,7 +118,6 @@ lib/
 └── main.dart
 ```
 
-<br/>
 <br/>
 
 # 🚀 Getting Started
@@ -158,7 +147,6 @@ flutter run
 ```
 
 <br/>
-<br/>
 
 # 👨‍💻 Author
 
@@ -167,7 +155,6 @@ Salah Hassan
 GitHub:
 https://github.com/SalahHassan202
 
-<br/>
 <br/>
 
 # 💙 About The Project
